@@ -25,7 +25,6 @@ export class Auth {
             }
         }
         this.removeTokens();
-        console.log("problem");
         location.href = '#/login';
         return false;
     }
@@ -44,7 +43,7 @@ export class Auth {
             if (response && response.status === 200) {
                 const result = await response.json();
                 if (result && !result.error) {
-                   this.removeTokens()
+                    this.removeTokens();
                     location.href = '#/login';
                     return true;
                 }
@@ -67,7 +66,7 @@ export class Auth {
     }
 
     static getUserInfo() {
-        localStorage
+        localStorage;
         const userInfo = localStorage.getItem(this.userInfoKey);
         if (userInfo) {
             return JSON.parse(userInfo);

@@ -15,21 +15,17 @@ export class Main {
         this.all = document.getElementById('all');
         Auth.processUnauthorizedResponse();
         new ButtonUtils();
-        // this.createExpenseChart();
         this.processDateInterval();
     }
 
 
     processDateInterval() {
-        const buttonsArray=  [this.today, this.week, this.month, this.year, this.all]
-        // buttonsArray.forEach()
+        const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
-                buttonsArray.forEach((btnClassList)=>{
-                    console.log(btnClassList);
-                    btnClassList.classList.remove('active')
-                    console.log(button);
-                })
+                buttonsArray.forEach((btnClassList) => {
+                    btnClassList.classList.remove('active');
+                });
                 button.classList.add('active');
                 this.getCategories(button.id);
             });
@@ -41,7 +37,6 @@ export class Main {
             const result = await CustomHttp.request(config.host + '/operations?period=' + date.toString(),);
             if (result) {
                 this.filterData(result);
-                // return result
             }
         } catch (error) {
             return console.log(error);
@@ -53,8 +48,6 @@ export class Main {
         const incomeLabels = [];
         const expenseAmount = [];
         const expenseLabels = [];
-
-        console.log(data);
         const income = data.filter(item => item.type.includes('income'));
         const expense = data.filter(item => item.type.includes('expense'));
         income.forEach((item => {
@@ -64,7 +57,6 @@ export class Main {
         expense.forEach((item => {
             expenseAmount.push(item.amount);
             expenseLabels.push(item.comment);
-
         }));
         this.createIncomeChart(incomeAmount, incomeLabels);
         this.createExpenseChart(expenseAmount, expenseLabels);
@@ -82,7 +74,6 @@ export class Main {
                 labels: incomeLabels,
                 datasets: [{
                     data: incomeAmount,
-                    // backgroundColor: ['red', 'green', 'blue'], // Цвета для секторов
                 }],
             },
         });
@@ -96,14 +87,11 @@ export class Main {
         const pieChart = new Chart(this.paymentsChart, {
             type: 'pie', // Тип диаграммы
             data: {
-                labels: expenseLabels, // Метки для секторов
+                labels: expenseLabels,
                 datasets: [{
-                    data: expenseAmount, // Данные для секторов
-                    // backgroundColor: ['red', 'green', 'blue'], // Цвета для секторов
+                    data: expenseAmount,
                 }],
             },
         });
     }
-
-
 }
