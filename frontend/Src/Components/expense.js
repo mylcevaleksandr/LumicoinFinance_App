@@ -1,14 +1,15 @@
-import {ButtonUtils} from "../services/button-utils.js";
+import {SidebarUtils} from "../services/sidebar-utils.js";
 import {Auth} from "../services/auth";
 import {CustomHttp} from "../services/custom-http";
 import config from "../../config/config";
+import {ButtonUtils} from "../services/button-utils.js";
 
 export class Expense {
     constructor() {
-        Auth.processUnauthorizedResponse();
         this.incomeCards = document.getElementById('expenseCards');
         this.cardCreate = document.getElementById('cardCreate');
-        new ButtonUtils();
+        Auth.processUnauthorizedResponse();
+        new SidebarUtils();
         this.getCategories();
     }
 
@@ -19,9 +20,9 @@ export class Expense {
         div.innerHTML = `
                 <div class="card border border-secondary-subtle rounded">
                     <div class="card-body">
-                        <h3  class="card-title">${title}</h3>
+                        <h3 data-titleId="${id}" class="card-title">${title}</h3>
                         <div>
-                            <a href="#/expense-update" class="btn btn-primary">Редактировать</a>
+                            <a href="#/expense-update" class="btn btn-primary" data-id="${id}">Редактировать</a>
                             <button class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#exampleModalCenter" data-id="${id}">Удалить
                             </button>
@@ -38,7 +39,6 @@ export class Expense {
         try {
             const result = await CustomHttp.request(config.host + '/categories/expense',);
             if (result) {
-                console.log(result);
                 this.postLayout(result);
             }
         } catch (error) {
@@ -50,6 +50,7 @@ export class Expense {
         if (result) {
             const layout = result.map(item => this.getTemplateCard(item.title, item.id));
             layout.forEach(card => this.incomeCards.insertBefore(card, this.cardCreate));
+            new ButtonUtils();
         }
 
     }

@@ -7,6 +7,7 @@ import {IncomeOutcome} from "./Components/incomeOutcome.js";
 import {IncomeCreate} from "./Components/incomeCreate.js";
 import {IncomeUpdate} from "./Components/incomeUpdate.js";
 import {ExpenseUpdate} from "./Components/expenseUpdate.js";
+import {ExpenseCreate} from "./Components/expenseCreate.js";
 
 export class Router {
     constructor() {
@@ -94,7 +95,7 @@ export class Router {
                 template: "Templates/expense_create.html",
                 styles: "Styles/correct.min.Styles",
                 load: () => {
-                    // new IncomeCreate();
+                    new ExpenseCreate();
                 }
             },
             {

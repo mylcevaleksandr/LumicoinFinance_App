@@ -8,7 +8,6 @@
         <div class=" custom-color h-100  d-flex flex-column justify-content-between ">
             <div class=" h-100 d-flex flex-column justify-content-between pt-5 pb-3">
                 <div class=" flex-grow-1 align-self-start d-flex flex-column align-items-center justify-content-start px-4 ">
-                    <!--                    <button  class="w-100 btn btn-primary ">-->
                     <a id="btnMain" type="button"
                        class="custom-color btn btn-light gap-2 w-100 py-2 px-3 d-flex align-items-center "
                        href="#/main">
@@ -42,6 +41,7 @@
                         </svg>
                         Доходы & Расходы
                     </a>
+
                     <div class="w-100">
                         <button id="btnToggle"
                                 class="w-100 custom-color sidebar_btn btn rounded-bottom-0  rounded-top d-flex justify-content-between align-items-center dropdown-toggle"
@@ -54,7 +54,6 @@
                                       d="M1.14506 13.3539C1.05102 13.2601 0.998169 13.1327 0.998169 12.9999C0.998169 12.867 1.05102 12.7397 1.14506 12.6459L6.79206 6.99987L1.14506 1.35387C1.01859 1.2274 0.969198 1.04306 1.01549 0.8703C1.06178 0.697536 1.19673 0.562593 1.36949 0.5163C1.54225 0.470008 1.72659 0.519401 1.85306 0.645873L7.85306 6.64587C7.9471 6.73968 7.99996 6.86705 7.99996 6.99987C7.99996 7.1327 7.9471 7.26007 7.85306 7.35387L1.85306 13.3539C1.75926 13.4479 1.63189 13.5008 1.49906 13.5008C1.36624 13.5008 1.23887 13.4479 1.14506 13.3539Z"
                                 />
                             </svg>
-
                         </button>
                         <ul id="ul-collapse" class="collapse ps-0  ">
                             <a id="btnIncome" class="toggleBtn  border border-primary  dropdown-item ps-2 pt-2 pb-1"
@@ -66,6 +65,7 @@
                                href="#/expense">Расходы</a>
                         </ul>
                     </div>
+                    
                 </div>
                 <span class="mb-auto sidebar_total ps-4">Баланс: <span class="text-primary" id="sidebarSum">500 </span>$</span>
             </div>
@@ -92,7 +92,8 @@
     <div class="col ">
         <h1 class="row ps-5 pt-5 mt-5">Главная</h1>
         <div class=" row fw-medium w-75 ps-5 py-5 my-5 d-flex justify-content-center align-items-center gap-3">
-            <button id="today" class="custom-color active fw-medium col btn btn-light border border-dark">Сегодня</button>
+            <button id="today" class="custom-color active fw-medium col btn btn-light border border-dark">Сегодня
+            </button>
             <button id="week" class="custom-color fw-medium col btn btn-light border border-dark ">Неделя</button>
             <button id="month" class="custom-color fw-medium col btn btn-light border border-dark ">Месяц</button>
             <button id="year" class="custom-color fw-medium col  btn btn-light border border-dark ">Год</button>

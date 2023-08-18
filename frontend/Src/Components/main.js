@@ -1,5 +1,5 @@
 import {Auth} from "../services/auth.js";
-import {ButtonUtils} from "../services/button-utils.js";
+import {SidebarUtils} from "../services/sidebar-utils.js";
 import {Chart} from "chart.js/auto";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
@@ -14,7 +14,7 @@ export class Main {
         this.year = document.getElementById('year');
         this.all = document.getElementById('all');
         Auth.processUnauthorizedResponse();
-        new ButtonUtils();
+        new SidebarUtils();
         this.processDateInterval();
     }
 

@@ -1,19 +1,22 @@
-import {ButtonUtils} from "../services/button-utils.js";
-import {CustomHttp} from "../services/custom-http";
-import config from "../../config/config";
+import {SidebarUtils} from "../services/sidebar-utils.js";
+import {CustomHttp} from "../services/custom-http.js";
+import config from "../../config/config.js";
 
 export class IncomeUpdate {
     constructor() {
-        this.categoryId = localStorage.getItem('incomeId');
-        this.categoryName = document.getElementById('categoryName');
-        this.updateCategory = document.getElementById('updateCategory');
-        new ButtonUtils();
+        this.categoryId = sessionStorage.getItem('Id');
+        this.currentCategoryName = sessionStorage.getItem('Name');
+        this.newCategoryName = document.getElementById('categoryName');
+        this.btnUpdateCategory = document.getElementById('updateCategory');
+        new SidebarUtils();
         this.processCategoryUpdate();
     }
 
+
     processCategoryUpdate() {
-        this.updateCategory.addEventListener('click', () => {
-            this.updateCategoryName(this.categoryName.value, this.categoryId);
+        this.newCategoryName.placeholder = this.currentCategoryName;
+        this.btnUpdateCategory.addEventListener('click', () => {
+            this.updateCategoryName(this.newCategoryName.value, this.categoryId);
         });
     }
 
@@ -23,7 +26,6 @@ export class IncomeUpdate {
                 "title": catName
             });
             if (result) {
-                console.log(result);
                 location.href = '#/income';
             }
         } catch (error) {

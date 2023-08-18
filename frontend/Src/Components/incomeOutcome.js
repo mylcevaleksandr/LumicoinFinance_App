@@ -1,7 +1,7 @@
-import {ButtonUtils} from "../services/button-utils.js";
+import {SidebarUtils} from "../services/sidebar-utils.js";
 
 export class IncomeOutcome {
     constructor() {
-        new ButtonUtils()
+        new SidebarUtils()
     }
 }
