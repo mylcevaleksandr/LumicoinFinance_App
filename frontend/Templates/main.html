@@ -65,7 +65,7 @@
                                href="#/expense">Расходы</a>
                         </ul>
                     </div>
-                    
+
                 </div>
                 <span class="mb-auto sidebar_total ps-4">Баланс: <span class="text-primary" id="sidebarSum">500 </span>$</span>
             </div>
@@ -98,21 +98,24 @@
             <button id="month" class="custom-color fw-medium col btn btn-light border border-dark ">Месяц</button>
             <button id="year" class="custom-color fw-medium col  btn btn-light border border-dark ">Год</button>
             <button id="all" class="custom-color fw-medium col btn btn-light border border-dark ">Все</button>
-            <button class="custom-color fw-medium col btn btn-light border border-dark"> Интервал</button>
-            <div class="col d-flex align-items-center justify-content-center gap-2">
+            <button id="interval" class="custom-color fw-medium col btn btn-light border border-dark"> Интервал</button>
+            <div class="col d-flex align-items-center justify-content-center gap-2 pe-0">
                 <div class=" text-dark">
                     c
                 </div>
-                <div class="">
-                    Дата
+                <div class="input-group date" id="datepicker">
+                    <input id="dateBegin" type="text" class="dates rounded px-2 border-0 form-control"
+                           placeholder="Дата">
+                    <span class="input-group-append"></span>
                 </div>
             </div>
             <div class="col d-flex align-items-center justify-content-center gap-2">
                 <div class=" text-dark">
                     по
                 </div>
-                <div class="">
-                    Дата
+                <div class="input-group date" id="datepickerTwo">
+                    <input id="dateEnd" type="text" class="dates px-2 rounded border-0 form-control" placeholder="Дата">
+                    <span class="input-group-append"></span>
                 </div>
             </div>
         </div>

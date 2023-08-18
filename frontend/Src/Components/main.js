@@ -13,13 +13,50 @@ export class Main {
         this.month = document.getElementById('month');
         this.year = document.getElementById('year');
         this.all = document.getElementById('all');
+        this.interval = document.getElementById('interval');
+        this.startDate = null;
+        this.endDate = null;
         Auth.processUnauthorizedResponse();
         new SidebarUtils();
-        this.processDateInterval();
+        this.processDateInterval(this);
+        this.processDates();
+
     }
 
+    processDateInterval(that) {
+        $(document).ready(function () {
+            $('#datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+            $('#datepickerTwo').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+            $("#dateBegin").on("change", function () {
+                let dateBegin = $(this).val();
+                that.startDate = dateBegin;
+            });
+            $("#dateEnd").on("change", function () {
+                let dateEnd = $(this).val();
+                that.endDate = dateEnd;
+            });
+        });
+        that.interval.addEventListener('click', () => {
+            this.getCategoriesFilter(that.startDate, that.endDate);
+        });
+    }
 
-    processDateInterval() {
+    async getCategoriesFilter(dateBegin, dateEnd) {
+        try {
+            const result = await CustomHttp.request(config.host + '/operations?period=interval&dateFrom=' + dateBegin + '&dateTo=' + dateEnd,);
+            if (result) {
+                this.filterData(result);
+            }
+        } catch (error) {
+            return console.log(error);
+        }
+    }
+
+    processDates() {
         const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
