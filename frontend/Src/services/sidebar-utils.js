@@ -17,7 +17,7 @@ export class SidebarUtils {
         this.svgToggle = document.getElementById('svgToggle');
         this.processSidebar();
         this.processBtn();
-        this.showBalance()
+        this.showBalance();
     }
 
     processBtn() {
@@ -26,7 +26,7 @@ export class SidebarUtils {
             this.svgToggle.classList.toggle('svg_toggle');
         });
 
-        if (window.location.hash === "#/income-outcome") {
+        if (window.location.hash === "#/income-outcome" || window.location.hash === "#/income-outcome-update") {
             this.btnIncomeOutcome.classList.remove('btn-light');
             this.btnIncomeOutcome.classList.add('btn-primary', 'text-light');
             this.svgIncomeOutcome.style.fill = 'white';
@@ -50,9 +50,9 @@ export class SidebarUtils {
 
     async showBalance() {
         try {
-            const result = await CustomHttp.request(config.host + '/balance',  );
+            const result = await CustomHttp.request(config.host + '/balance',);
             if (result.balance) {
-                this.sidebarSum.innerText=result.balance
+                this.sidebarSum.innerText = result.balance;
             }
         } catch (error) {
             return console.log(error);

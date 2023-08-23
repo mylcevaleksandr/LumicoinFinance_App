@@ -23,7 +23,10 @@ export class Main {
 
     }
 
+
     processDateInterval(that) {
+        const buttonsArray = [that.today, that.week, that.month, that.year, that.all];
+
         $(document).ready(function () {
             $('#datepicker').datepicker({
                 format: 'yyyy-mm-dd'
@@ -41,7 +44,16 @@ export class Main {
             });
         });
         that.interval.addEventListener('click', () => {
-            this.getCategoriesFilter(that.startDate, that.endDate);
+            buttonsArray.forEach((btnClassList) => {
+                btnClassList.classList.remove('active');
+            });
+            that.interval.classList.add('active');
+            if (!that.startDate || !that.endDate) {
+                alert("Please choose a start date and an end date!")
+            } else {
+                this.getCategoriesFilter(that.startDate, that.endDate);
+            }
+
         });
     }
 
@@ -60,6 +72,7 @@ export class Main {
         const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
+                this.interval.classList.remove('active');
                 buttonsArray.forEach((btnClassList) => {
                     btnClassList.classList.remove('active');
                 });
