@@ -1,6 +1,6 @@
 import {SidebarUtils} from "../services/sidebar-utils.js";
-import {CustomHttp} from "../services/custom-http";
-import config from "../../config/config";
+import {CustomHttp} from "../services/custom-http.js";
+import config from "../../config/config.js";
 
 export class IncomeOutcome {
     constructor() {

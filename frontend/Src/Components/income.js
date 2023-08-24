@@ -24,7 +24,7 @@ export class Income {
                         <div>
                             <a href="#/income-update" class="btn btn-primary" data-id="${id}">Редактировать</a>
                             <button class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalCenter" data-id="${id}">Удалить
+                                    data-bs-target="#modalCenter" data-id="${id}">Удалить
                             </button>
                         </div>
                     </div>

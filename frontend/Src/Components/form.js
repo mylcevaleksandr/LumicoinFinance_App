@@ -5,6 +5,8 @@ import config from "../../config/config.js";
 export class Form {
 
     constructor(page) {
+        this.nav = document.getElementById('nav');
+        this.hideNav();
         this.page = page;
         this.agreeElement = null;
         this.processElement = null;
@@ -42,7 +44,7 @@ export class Form {
                 name: "passwordTwo",
                 id: "form_passwordTwo",
                 element: null,
-                regex:  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{8})[a-zA-Z0-9]{0,30}$/,
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{8})[a-zA-Z0-9]{0,30}$/,
                 valid: false,
             });
         }
@@ -77,6 +79,13 @@ export class Form {
             field.valid = true;
         }
         this.validateForm();
+    }
+
+    hideNav() {
+        if (window.location.hash == "#/login" || window.location.hash == "#/signup") {
+            this.nav.classList.add('d-none');
+            this.nav.classList.remove('d-flex');
+        }
     }
 
     validateForm() {

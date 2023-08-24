@@ -6,6 +6,11 @@ import config from "../../config/config.js";
 
 export class Main {
     constructor() {
+        document.onreadystatechange = () => {
+            if (document.readyState === "complete") {
+                console.log(12);
+            }
+        };
         this.incomeChart = document.getElementById('incomeChart');
         this.paymentsChart = document.getElementById('paymentsChart');
         this.today = document.getElementById('today');
@@ -17,10 +22,27 @@ export class Main {
         this.startDate = null;
         this.endDate = null;
         Auth.processUnauthorizedResponse();
+        this.nav = null;
+        this.showNav();
         new SidebarUtils();
         this.processDateInterval(this);
         this.processDates();
 
+    }
+
+    showNav() {
+        document.onreadystatechange = () => {
+            if (document.readyState === "complete") {
+                console.log(13);            }
+        };
+        window.addEventListener('load', function () {
+            alert("It's loaded!");
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log(14);
+        });
+        console.log(1);
     }
 
 
@@ -49,7 +71,7 @@ export class Main {
             });
             that.interval.classList.add('active');
             if (!that.startDate || !that.endDate) {
-                alert("Please choose a start date and an end date!")
+                alert("Please choose a start date and an end date!");
             } else {
                 this.getCategoriesFilter(that.startDate, that.endDate);
             }
