@@ -2,7 +2,7 @@ import {SidebarUtils} from "../services/sidebar-utils.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
 
-export class IncomeOutcomeUpdate {
+export class IncomeOutcomeCreate {
     constructor() {
         this.operationId = sessionStorage.getItem('operationId');
         this.category = null;
@@ -14,35 +14,10 @@ export class IncomeOutcomeUpdate {
         this.date = document.getElementById('date');
         this.comment = document.getElementById('comment');
         new SidebarUtils();
-        this.getOperation();
         this.processSelect();
         this.saveChanges();
         this.showCalendar();
 
-    }
-
-    async getOperation() {
-        if (this.operationId) {
-            try {
-                const result = await CustomHttp.request(config.host + "/operations/" + this.operationId);
-                if (result) {
-                    this.processOperation(result);
-                }
-            } catch (e) {
-                console.log(e);
-            }
-        }
-    }
-
-    processOperation(result) {
-        this.category = result.category;
-        if (result.type === "expense") {
-            this.selectExpense.selected = true;
-        }
-        this.getCategories(result.type);
-        this.amount.placeholder = result.amount + "$";
-        this.date.placeholder = this.getDate(result.date, 1);
-        this.comment.placeholder = result.comment;
     }
 
     getDate(date, id) {
@@ -85,9 +60,6 @@ export class IncomeOutcomeUpdate {
             optionElement.value = categories[i].title;
             optionElement.id = categories[i].id;
             optionElement.innerHTML = categories[i].title;
-            if (this.category === categories[i].title) {
-                optionElement.selected = true;
-            }
             this.description.appendChild(optionElement);
         }
     }
@@ -100,14 +72,8 @@ export class IncomeOutcomeUpdate {
             let date = that.getDate(that.date.value, 2);
             let comment = that.comment.value;
             let catId = that.description.selectedOptions[0].id;
-            if (amount.length == 0) {
-                amount = that.amount.placeholder.split("$")[0];
-            }
-            if (comment.length == 0) {
-                comment = that.comment.placeholder;
-            }
             console.log([type, +amount, date, comment, +catId]);
-            this.putChanges(type, +amount, date, comment, +catId);
+            this.postChanges(type, +amount, date, comment, +catId);
         });
     }
 
@@ -119,10 +85,10 @@ export class IncomeOutcomeUpdate {
         });
     }
 
-    async putChanges(type, amount, date, comment, catId) {
+    async postChanges(type, amount, date, comment, catId) {
 
         try {
-            const result = await CustomHttp.request(config.host + "/operations/" + this.operationId, "PUT", {
+            const result = await CustomHttp.request(config.host + "/operations", "POST", {
                 "type": type,
                 "amount": amount,
                 "date": date,
@@ -130,6 +96,7 @@ export class IncomeOutcomeUpdate {
                 "category_id": catId
             });
             if (result) {
+                sessionStorage.clear();
                 window.location.href = "#/income-outcome";
             }
         } catch (e) {
@@ -137,4 +104,3 @@ export class IncomeOutcomeUpdate {
         }
     }
 }
-

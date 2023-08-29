@@ -5,13 +5,14 @@
 <div class="row position-relative ps-5 pb-3">
     <div class="col-3">
         <select id="select" class="form-select my-1">
+            <option value="" disabled selected hidden>Тип...</option>
             <option value="income" id="selectIncome">Доход</option>
             <option value="expense" id="selectExpense">Расход</option>
         </select>
         <select id="description" class="form-select my-1">
-            <option id="selectDescription">Зарплата</option>
+            <option id="selectDescription" disabled selected hidden>Категория...</option>
         </select>
-        <input id="amount" type="text" placeholder="500$" class="form-control my-1">
+        <input id="amount" type="text" placeholder="Сумма в $" class="form-control my-1">
         <div class="input-group date" id="datepickerThree">
             <input id="date" type="text"
                    class="dates rounded form-control"

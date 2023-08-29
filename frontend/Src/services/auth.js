@@ -66,7 +66,6 @@ export class Auth {
     }
 
     static getUserInfo() {
-        localStorage;
         const userInfo = localStorage.getItem(this.userInfoKey);
         if (userInfo) {
             return JSON.parse(userInfo);

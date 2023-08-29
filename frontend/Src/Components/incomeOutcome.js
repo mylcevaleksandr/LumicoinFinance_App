@@ -4,6 +4,8 @@ import config from "../../config/config.js";
 
 export class IncomeOutcome {
     constructor() {
+        new SidebarUtils();
+
         this.deleteConfirm = document.getElementById('deleteConfirm');
         this.today = document.getElementById('today');
         this.week = document.getElementById('week');
@@ -15,11 +17,8 @@ export class IncomeOutcome {
         this.dates = sessionStorage.getItem('dates');
         this.startDate = null;
         this.endDate = null;
-        // Auth.processUnauthorizedResponse();
-        new SidebarUtils();
         this.processDateInterval(this);
         this.processDates();
-
     }
 
 
@@ -33,6 +32,7 @@ export class IncomeOutcome {
             $('#datepickerTwo').datepicker({
                 format: 'yyyy-mm-dd'
             });
+            5;
             $("#dateBegin").on("change", function () {
                 let dateBegin = $(this).val();
                 that.startDate = dateBegin;
@@ -68,10 +68,19 @@ export class IncomeOutcome {
     }
 
     processDates() {
+        const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
+
         if (this.dates) {
+            let find = buttonsArray.find(e => e.id === this.dates);
+            this.interval.classList.remove('active');
+            buttonsArray.forEach((btnClassList) => {
+                btnClassList.classList.remove('active');
+            });
+            find.classList.add('active');
+            sessionStorage.clear();
+            console.log(sessionStorage);
             this.getCategories(this.dates);
         }
-        const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
                 sessionStorage.setItem('dates', button.id);
@@ -141,7 +150,6 @@ export class IncomeOutcome {
     filterData(data) {
         this.tableBody.innerHTML = "";
         let categoryType = null;
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
             let expense = false;
             if (data[i].type === "expense") {
@@ -171,9 +179,9 @@ export class IncomeOutcome {
                     this.deleteConfirm.addEventListener('click', () => {
                         this.deleteCategory(operationId);
                     });
-                }else{
-                    sessionStorage.setItem('operationId',operationId)
-                    location.href='#/income-outcome-update'
+                } else {
+                    sessionStorage.setItem('operationId', operationId);
+                    location.href = '#/income-outcome-update';
                 }
             });
         });
@@ -183,6 +191,7 @@ export class IncomeOutcome {
         try {
             const result = await CustomHttp.request(config.host + '/operations/' + categoryId, 'DELETE');
             if (result) {
+                sessionStorage.clear();
                 location.href = "#/income-outcome";
             }
         } catch (error) {

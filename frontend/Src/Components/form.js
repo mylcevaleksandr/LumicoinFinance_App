@@ -1,12 +1,11 @@
 import {CustomHttp} from "../services/custom-http.js";
 import {Auth} from "../services/auth.js";
 import config from "../../config/config.js";
+import {SidebarUtils} from "../services/sidebar-utils.js";
 
 export class Form {
 
     constructor(page) {
-        this.nav = document.getElementById('nav');
-        this.hideNav();
         this.page = page;
         this.agreeElement = null;
         this.processElement = null;
@@ -80,14 +79,6 @@ export class Form {
         }
         this.validateForm();
     }
-
-    hideNav() {
-        if (window.location.hash == "#/login" || window.location.hash == "#/signup") {
-            this.nav.classList.add('d-none');
-            this.nav.classList.remove('d-flex');
-        }
-    }
-
     validateForm() {
 
         const validForm = this.fields.every(item => item.valid);

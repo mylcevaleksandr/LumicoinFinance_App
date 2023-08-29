@@ -7,7 +7,7 @@ module.exports = {
     entry: "./Src/app.js",
     mode: "development",
     output: {
-        filename: "main.js",
+        filename: "start.js",
         path: path.resolve(__dirname, "docs"),
         clean: true
     },

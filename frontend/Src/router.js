@@ -1,6 +1,6 @@
 import {Form} from "./Components/form.js";
 import {Auth} from "./services/auth.js";
-import {Main} from "./Components/main.js";
+import {Start} from "./Components/start.js";
 import {Income} from "./Components/income.js";
 import {Expense} from "./Components/expense.js";
 import {IncomeOutcome} from "./Components/incomeOutcome.js";
@@ -9,6 +9,7 @@ import {IncomeUpdate} from "./Components/incomeUpdate.js";
 import {ExpenseUpdate} from "./Components/expenseUpdate.js";
 import {ExpenseCreate} from "./Components/expenseCreate.js";
 import {IncomeOutcomeUpdate} from "./Components/incomeOutcomeUpdate.js";
+import {IncomeOutcomeCreate} from "./Components/incomeOutcomeCreate";
 
 export class Router {
     constructor() {
@@ -42,7 +43,7 @@ export class Router {
                 template: "Templates/main.html",
                 styles: "Styles/main.css",
                 load: () => {
-                    new Main();
+                    new Start();
                 }
             },
             {
@@ -117,15 +118,15 @@ export class Router {
                     new IncomeOutcomeUpdate();
                 }
             },
-            // {
-            //     route: "#/expense-update",
-            //     title: "Редактирование Категории Расходов",
-            //     template: "Templates/expense_update.html",
-            //     styles: "Styles/correct.min.Styles",
-            //     load: () => {
-            //         new ExpenseUpdate();
-            //     }
-            // },
+            {
+                route: "#/income-outcome-create",
+                title: "Создание Категории Расходов и Доходов",
+                template: "Templates/income_outcome_create.html",
+                styles: "Styles/correct.min.Styles",
+                load: () => {
+                    new IncomeOutcomeCreate();
+                }
+            },
         ];
     }
 

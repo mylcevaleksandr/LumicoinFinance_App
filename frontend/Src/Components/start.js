@@ -4,13 +4,8 @@ import {Chart} from "chart.js/auto";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
 
-export class Main {
+export class Start {
     constructor() {
-        document.onreadystatechange = () => {
-            if (document.readyState === "complete") {
-                console.log(12);
-            }
-        };
         this.incomeChart = document.getElementById('incomeChart');
         this.paymentsChart = document.getElementById('paymentsChart');
         this.today = document.getElementById('today');
@@ -21,28 +16,11 @@ export class Main {
         this.interval = document.getElementById('interval');
         this.startDate = null;
         this.endDate = null;
+
         Auth.processUnauthorizedResponse();
-        this.nav = null;
-        this.showNav();
         new SidebarUtils();
         this.processDateInterval(this);
         this.processDates();
-
-    }
-
-    showNav() {
-        document.onreadystatechange = () => {
-            if (document.readyState === "complete") {
-                console.log(13);            }
-        };
-        window.addEventListener('load', function () {
-            alert("It's loaded!");
-        });
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            console.log(14);
-        });
-        console.log(1);
     }
 
 
