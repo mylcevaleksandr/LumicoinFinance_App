@@ -4,10 +4,8 @@ import {Start} from "./Components/start.js";
 import {Income} from "./Components/income.js";
 import {Expense} from "./Components/expense.js";
 import {IncomeOutcome} from "./Components/incomeOutcome.js";
-import {IncomeCreate} from "./Components/incomeCreate.js";
-import {IncomeUpdate} from "./Components/incomeUpdate.js";
-import {ExpenseUpdate} from "./Components/expenseUpdate.js";
-import {ExpenseCreate} from "./Components/expenseCreate.js";
+import {Update} from "./Components/update.js";
+import {Create} from "./Components/create.js";
 import {IncomeOutcomeUpdate} from "./Components/incomeOutcomeUpdate.js";
 import {IncomeOutcomeCreate} from "./Components/incomeOutcomeCreate";
 
@@ -16,8 +14,8 @@ export class Router {
         this.contentElement = document.getElementById("content");
         this.stylesElement = document.getElementById("Styles");
         this.titleElement = document.getElementById("title");
-        this.profileElement = document.getElementById("profile");
-        this.profileFullNameElement = document.getElementById("profile-full-name");
+        // this.profileElement = document.getElementById("profile");
+        // this.profileFullNameElement = document.getElementById("profile-full-name");
         this.routes = [
             {
                 route: "#/signup",
@@ -79,16 +77,7 @@ export class Router {
                 template: "Templates/income_create.html",
                 styles: "Styles/correct.min.Styles",
                 load: () => {
-                    new IncomeCreate();
-                }
-            },
-            {
-                route: "#/income-update",
-                title: "Редактирование Категории Доходов",
-                template: "Templates/income_update.html",
-                styles: "Styles/correct.min.Styles",
-                load: () => {
-                    new IncomeUpdate();
+                    new Create("income");
                 }
             },
             {
@@ -97,7 +86,16 @@ export class Router {
                 template: "Templates/expense_create.html",
                 styles: "Styles/correct.min.Styles",
                 load: () => {
-                    new ExpenseCreate();
+                    new Create("expense");
+                }
+            },
+            {
+                route: "#/income-update",
+                title: "Редактирование Категории Доходов",
+                template: "Templates/income_update.html",
+                styles: "Styles/correct.min.Styles",
+                load: () => {
+                    new Update("income");
                 }
             },
             {
@@ -106,7 +104,7 @@ export class Router {
                 template: "Templates/expense_update.html",
                 styles: "Styles/correct.min.Styles",
                 load: () => {
-                    new ExpenseUpdate();
+                    new Update("expense");
                 }
             },
             {

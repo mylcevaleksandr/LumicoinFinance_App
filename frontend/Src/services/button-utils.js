@@ -43,8 +43,6 @@ export class ButtonUtils {
             button.addEventListener('click', () => {
                 const categoryId = button.getAttribute('data-id');
                 const categoryName = document.querySelector(`[data-titleId="${categoryId}"]`).innerText;
-                console.log(categoryName);
-                console.log(categoryId);
                 sessionStorage.setItem('Id', categoryId);
                 sessionStorage.setItem('Name', categoryName);
             });

@@ -17,6 +17,9 @@ export class SidebarUtils {
         this.svgMain = document.getElementById('svgMain');
         this.btnIncomeOutcome = document.getElementById('btnIncomeOutcome');
         this.svgIncomeOutcome = document.getElementById('svgIncomeOutcome');
+        this.btnToggle = document.getElementById('btnToggle');
+        this.svgToggle = document.getElementById('svgToggle');
+        this.ul = document.getElementById("ul-collapse");
         this.processSidebar();
         this.processBtn();
         this.showBalance();
@@ -24,21 +27,39 @@ export class SidebarUtils {
     }
 
     buttonToggle() {
-        let btnToggle = document.getElementById('btnToggle');
-        let svgToggle = document.getElementById('svgToggle');
-        let ul = document.getElementById('ul-collapse');
-        if (window.location.hash === "#/main" || window.location.hash === "#/income-outcome" || window.location.hash === "#/income-outcome-update" || window.location.hash === "#/income-outcome-create") {
-            ul.classList.remove('show');
-            btnToggle.classList.remove('btn-primary');
-            btnToggle.classList.remove('text-light');
-            svgToggle.classList.remove('svg_toggle');
+        if (window.location.hash === "#/income" || window.location.hash === "#/income-create" || window.location.hash === "#/income-update" || window.location.hash === "#/expense" || window.location.hash === "#/expense-create" || window.location.hash === "#/expense-update") {
+            this.ul.classList.add('show');
+            this.btnToggle.classList.remove('collapsed');
+            this.svgToggle.classList.add('svg_toggle');
+        } else {
+            this.ul.classList.remove('show');
+            this.btnToggle.classList.add('collapsed');
         }
 
+        function onClassChange(node, callback) {
+            let lastClassString = node.classList.toString();
+            const mutationObserver = new MutationObserver((mutationList) => {
+                for (const item of mutationList) {
+                    if (item.attributeName === "class") {
+                        const classString = node.classList.toString();
+                        if (classString !== lastClassString) {
+                            callback(mutationObserver);
+                            lastClassString = classString;
+                            break;
+                        }
+                    }
+                }
+            });
+            mutationObserver.observe(node, {attributes: true});
+            return mutationObserver;
+        }
 
-        btnToggle.addEventListener('click', () => {
-            btnToggle.classList.toggle('btn-primary');
-            btnToggle.classList.toggle('text-light');
-            svgToggle.classList.toggle('svg_toggle');
+        onClassChange(this.btnToggle, (observer) => {
+            if (this.btnToggle.classList.contains("collapsed")) {
+                this.svgToggle.classList.remove('svg_toggle');
+            } else {
+                this.svgToggle.classList.add('svg_toggle');
+            }
         });
     }
 
@@ -161,7 +182,7 @@ export class SidebarUtils {
 
                     <div class="w-100">
                         <button id="btnToggle"
-                                class="w-100 custom-color sidebar_btn btn rounded-bottom-0  rounded-top d-flex justify-content-between align-items-center"
+                                class="w-100 collapsed custom-color sidebar_btn btn rounded-bottom-0  rounded-top d-flex justify-content-between align-items-center"
                                 type="button" data-bs-toggle="collapse" data-bs-target="#ul-collapse"
                                 aria-expanded="false">
                             Категории

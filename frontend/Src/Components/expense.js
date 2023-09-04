@@ -1,5 +1,4 @@
 import {SidebarUtils} from "../services/sidebar-utils.js";
-import {Auth} from "../services/auth.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
 import {ButtonUtils} from "../services/button-utils.js";
@@ -8,7 +7,6 @@ export class Expense {
     constructor() {
         this.incomeCards = document.getElementById('expenseCards');
         this.cardCreate = document.getElementById('cardCreate');
-        Auth.processUnauthorizedResponse();
         new SidebarUtils();
         this.getCategories();
     }

@@ -1,4 +1,3 @@
-import {Auth} from "../services/auth.js";
 import {SidebarUtils} from "../services/sidebar-utils.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
@@ -8,7 +7,6 @@ export class Income {
     constructor() {
         this.incomeCards = document.getElementById('incomeCards');
         this.cardCreate = document.getElementById('cardCreate');
-        Auth.processUnauthorizedResponse();
         new SidebarUtils();
         this.getCategories();
     }
