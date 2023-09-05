@@ -62,12 +62,14 @@ export class Auth {
     }
 
     static setUserInfo(info) {
+        console.log(info);
         localStorage.setItem(this.userInfoKey, JSON.stringify(info));
     }
 
     static getUserInfo() {
         const userInfo = localStorage.getItem(this.userInfoKey);
-        if (userInfo) {
+        const userToken = localStorage.getItem(this.accessTokenKey);
+        if (userInfo && userToken) {
             return JSON.parse(userInfo);
         }
         return null;

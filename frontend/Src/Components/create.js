@@ -9,8 +9,12 @@ export class Create {
         this.btnCreateCategory = document.getElementById('createCategory');
         new SidebarUtils();
         this.processCategoryCreate();
+        this.dataInit();
     }
+    async dataInit(type) {
+        await SidebarUtils.showBalance();
 
+    }
     processCategoryCreate() {
         this.btnCreateCategory.addEventListener('click', () => {
             this.createCategoryName(this.categoryName.value, this.type);

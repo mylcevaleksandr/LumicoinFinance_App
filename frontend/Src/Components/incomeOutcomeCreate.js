@@ -72,7 +72,6 @@ export class IncomeOutcomeCreate {
             let date = that.getDate(that.date.value, 2);
             let comment = that.comment.value;
             let catId = that.description.selectedOptions[0].id;
-            console.log([type, +amount, date, comment, +catId]);
             this.postChanges(type, +amount, date, comment, +catId);
         });
     }

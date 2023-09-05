@@ -10,7 +10,6 @@ export class SidebarUtils {
         this.show();
         this.btnIncome = document.getElementById('btnIncome');
         this.btnPayments = document.getElementById('btnPayments');
-        this.sidebarSum = document.getElementById('sidebarSum');
         this.userFullName = document.getElementById('sidebarUser');
         this.userLogout = document.getElementById('sidebarLogout');
         this.btnMain = document.getElementById('btnMain');
@@ -22,8 +21,18 @@ export class SidebarUtils {
         this.ul = document.getElementById("ul-collapse");
         this.processSidebar();
         this.processBtn();
-        this.showBalance();
         this.buttonToggle();
+    }
+
+    static async showBalance() {
+        try {
+            const result = await CustomHttp.request(config.host + '/balance',);
+            if (result.balance) {
+                document.getElementById("sidebarSum").innerText = result.balance;
+            }
+        } catch (error) {
+            return console.log(error);
+        }
     }
 
     buttonToggle() {
@@ -63,9 +72,8 @@ export class SidebarUtils {
         });
     }
 
-
     show() {
-        if (!document.getElementById('nav') && this.user) {
+        if (!document.getElementById('nav')) {
             const myNav = document.createElement('nav');
             myNav.className = 'sidebar  min-vh-100 fw-medium text-align-center d-flex flex-column align-items-center  border-end col col-2 py-5 px-0 ';
             myNav.id = 'nav';
@@ -73,7 +81,6 @@ export class SidebarUtils {
             this.root.insertBefore(myNav, this.beforeChild);
         }
     }
-
 
     processBtn() {
         this.btnIncomeOutcome.addEventListener('click', () => {
@@ -111,7 +118,6 @@ export class SidebarUtils {
 
     }
 
-
     processSidebar() {
         if (this.user) {
             this.userFullName.innerText = this.user.fullName;
@@ -123,17 +129,6 @@ export class SidebarUtils {
                 nav.parentNode.removeChild(nav);
             }
         };
-    }
-
-    async showBalance() {
-        try {
-            const result = await CustomHttp.request(config.host + '/balance',);
-            if (result.balance) {
-                this.sidebarSum.innerText = result.balance;
-            }
-        } catch (error) {
-            return console.log(error);
-        }
     }
 
     getLayout() {

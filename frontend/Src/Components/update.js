@@ -5,8 +5,8 @@ import config from "../../config/config.js";
 export class Update {
     constructor(type) {
         this.type = type;
-        this.categoryId = sessionStorage.getItem('Id');
-        this.currentCategoryName = sessionStorage.getItem('Name');
+        this.categoryId = sessionStorage.getItem('updateId');
+        this.currentCategoryName = sessionStorage.getItem('updateName');
         this.newCategoryName = document.getElementById('categoryName');
         this.btnUpdateCategory = document.getElementById('updateCategory');
         new SidebarUtils();
@@ -45,6 +45,6 @@ export class Update {
                 return console.log(error);
             }
         }
-
+        sessionStorage.clear();
     }
 }

@@ -1,11 +1,11 @@
 import {CustomHttp} from "../services/custom-http.js";
 import {Auth} from "../services/auth.js";
 import config from "../../config/config.js";
-import {SidebarUtils} from "../services/sidebar-utils.js";
 
 export class Form {
 
     constructor(page) {
+        // new SidebarUtils();
         this.page = page;
         this.agreeElement = null;
         this.processElement = null;
@@ -79,6 +79,7 @@ export class Form {
         }
         this.validateForm();
     }
+
     validateForm() {
 
         const validForm = this.fields.every(item => item.valid);

@@ -1,8 +1,7 @@
 import {Form} from "./Components/form.js";
 import {Auth} from "./services/auth.js";
 import {Start} from "./Components/start.js";
-import {Income} from "./Components/income.js";
-import {Expense} from "./Components/expense.js";
+import {Categories} from "./Components/categories.js";
 import {IncomeOutcome} from "./Components/incomeOutcome.js";
 import {Update} from "./Components/update.js";
 import {Create} from "./Components/create.js";
@@ -47,19 +46,19 @@ export class Router {
             {
                 route: "#/income",
                 title: "Доходы",
-                template: "Templates/income.html",
+                template: "Templates/categories.html",
                 styles: "Styles/income.css",
                 load: () => {
-                    new Income();
+                    new Categories("income");
                 }
             },
             {
                 route: "#/expense",
                 title: "Расходы",
-                template: "Templates/expense.html",
+                template: "Templates/categories.html",
                 styles: "Styles/payments.css",
                 load: () => {
-                    new Expense();
+                    new Categories("expense");
                 }
             },
             {
