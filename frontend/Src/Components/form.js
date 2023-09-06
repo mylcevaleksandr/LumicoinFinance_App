@@ -5,7 +5,12 @@ import config from "../../config/config.js";
 export class Form {
 
     constructor(page) {
-        // new SidebarUtils();
+        this.nav = document.getElementById('nav');
+        if (this.nav) {
+            console.log(this.nav);
+            this.nav.style.display = "none";
+            window.location.reload()
+        }
         this.page = page;
         this.agreeElement = null;
         this.processElement = null;

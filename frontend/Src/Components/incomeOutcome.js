@@ -19,8 +19,14 @@ export class IncomeOutcome {
         this.endDate = null;
         this.processDateInterval(this);
         this.processDates();
+        this.dataInit();
     }
 
+    async dataInit(type) {
+        await SidebarUtils.showBalance();
+        // await this.getCategories(type);
+
+    }
 
     processDateInterval(that) {
         const buttonsArray = [that.today, that.week, that.month, that.year, that.all];

@@ -18,7 +18,6 @@ export class Categories extends ButtonUtils {
     async dataInit(type) {
         await SidebarUtils.showBalance();
         await this.getCategories(type);
-
     }
 
     getTemplateCard(title, id) {

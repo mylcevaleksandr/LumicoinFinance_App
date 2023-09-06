@@ -5,8 +5,7 @@ import {Categories} from "./Components/categories.js";
 import {IncomeOutcome} from "./Components/incomeOutcome.js";
 import {Update} from "./Components/update.js";
 import {Create} from "./Components/create.js";
-import {IncomeOutcomeUpdate} from "./Components/incomeOutcomeUpdate.js";
-import {IncomeOutcomeCreate} from "./Components/incomeOutcomeCreate";
+import {IncomeOutcomeOperations} from "./Components/incomeOutcomeOperations";
 
 export class Router {
     constructor() {
@@ -112,16 +111,16 @@ export class Router {
                 template: "Templates/income_outcome_update.html",
                 styles: "",
                 load: () => {
-                    new IncomeOutcomeUpdate();
+                    new IncomeOutcomeOperations('update');
                 }
             },
             {
                 route: "#/income-outcome-create",
                 title: "Создание Категории Расходов и Доходов",
                 template: "Templates/income_outcome_create.html",
-                styles: "Styles/correct.min.Styles",
+                styles: "",
                 load: () => {
-                    new IncomeOutcomeCreate();
+                    new IncomeOutcomeOperations('create');
                 }
             },
         ];

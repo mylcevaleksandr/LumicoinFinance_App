@@ -2,8 +2,8 @@ import {SidebarUtils} from "../services/sidebar-utils.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
 
-export class IncomeOutcomeUpdate {
-    constructor() {
+export class IncomeOutcomeOperations {
+    constructor(type) {
         this.operationId = sessionStorage.getItem('operationId');
         this.category = null;
         this.saveIncome = document.getElementById('saveIncome');
@@ -14,11 +14,59 @@ export class IncomeOutcomeUpdate {
         this.date = document.getElementById('date');
         this.comment = document.getElementById('comment');
         new SidebarUtils();
-        this.getOperation();
         this.processSelect();
-        this.saveChanges();
         this.showCalendar();
+        this.dataInit(type);
+    }
 
+    async dataInit(type) {
+        await SidebarUtils.showBalance();
+        if (type === 'create') {
+            this.validateInputs();
+        }
+        if (type === 'update') {
+            await this.getOperation();
+            await this.saveChanges();
+
+        }
+    }
+
+    validateInputs() {
+        const that = this;
+        const inputs = [that.select, that.amount, that.comment];
+        inputs.forEach((input) => {
+            input.addEventListener('input', () => {
+                input.classList.remove('border-danger');
+            });
+        });
+        that.date.addEventListener('click',(e)=>{
+        e.target.classList.remove('border-danger')
+        })
+        this.saveIncome.addEventListener('click', () => {
+            let type = that.select.value;
+            let catId = that.description.selectedOptions[0].id;
+            let amount = that.amount.value;
+            let date = that.date.value;
+            let comment = that.comment.value;
+
+            if (!type) {
+                that.select.classList.add('border-danger');
+            }
+            if (amount < 1) {
+                that.amount.classList.add('border-danger');
+            }
+            if (!date) {
+                that.date.classList.add('border-danger');
+            } else {
+                date = that.getDate(that.date.value, 2);
+            }
+            if (!comment) {
+                that.comment.classList.add('border-danger');
+            }
+            if (type && amount > 0 && date && comment) {
+                this.postChanges(type, +amount, date, comment, +catId);
+            }
+        });
     }
 
     async getOperation() {
@@ -44,6 +92,7 @@ export class IncomeOutcomeUpdate {
         this.date.placeholder = this.getDate(result.date, 1);
         this.comment.placeholder = result.comment;
     }
+
 
     getDate(date, id) {
         if (!date) {
@@ -85,9 +134,6 @@ export class IncomeOutcomeUpdate {
             optionElement.value = categories[i].title;
             optionElement.id = categories[i].id;
             optionElement.innerHTML = categories[i].title;
-            if (this.category === categories[i].title) {
-                optionElement.selected = true;
-            }
             this.description.appendChild(optionElement);
         }
     }
@@ -100,14 +146,7 @@ export class IncomeOutcomeUpdate {
             let date = that.getDate(that.date.value, 2);
             let comment = that.comment.value;
             let catId = that.description.selectedOptions[0].id;
-            if (amount.length == 0) {
-                amount = that.amount.placeholder.split("$")[0];
-            }
-            if (comment.length == 0) {
-                comment = that.comment.placeholder;
-            }
-            console.log([type, +amount, date, comment, +catId]);
-            this.putChanges(type, +amount, date, comment, +catId);
+            this.postChanges(type, +amount, date, comment, +catId);
         });
     }
 
@@ -119,10 +158,10 @@ export class IncomeOutcomeUpdate {
         });
     }
 
-    async putChanges(type, amount, date, comment, catId) {
+    async postChanges(type, amount, date, comment, catId) {
 
         try {
-            const result = await CustomHttp.request(config.host + "/operations/" + this.operationId, "PUT", {
+            const result = await CustomHttp.request(config.host + "/operations", "POST", {
                 "type": type,
                 "amount": amount,
                 "date": date,
@@ -130,6 +169,7 @@ export class IncomeOutcomeUpdate {
                 "category_id": catId
             });
             if (result) {
+                sessionStorage.clear();
                 window.location.href = "#/income-outcome";
             }
         } catch (e) {
@@ -137,4 +177,3 @@ export class IncomeOutcomeUpdate {
         }
     }
 }
-

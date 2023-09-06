@@ -6,6 +6,8 @@ import config from "../../config/config.js";
 
 export class Start {
     constructor() {
+        Auth.processUnauthorizedResponse();
+
         this.incomeChart = document.getElementById('incomeChart');
         this.paymentsChart = document.getElementById('paymentsChart');
         this.today = document.getElementById('today');
@@ -16,13 +18,14 @@ export class Start {
         this.interval = document.getElementById('interval');
         this.startDate = null;
         this.endDate = null;
-
-        Auth.processUnauthorizedResponse();
         new SidebarUtils();
+        this.dataInit()
         this.processDateInterval(this);
         this.processDates();
     }
-
+    async dataInit() {
+        await SidebarUtils.showBalance();
+    }
 
     processDateInterval(that) {
         const buttonsArray = [that.today, that.week, that.month, that.year, that.all];
