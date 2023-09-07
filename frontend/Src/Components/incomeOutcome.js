@@ -5,7 +5,6 @@ import config from "../../config/config.js";
 export class IncomeOutcome {
     constructor() {
         new SidebarUtils();
-
         this.deleteConfirm = document.getElementById('deleteConfirm');
         this.today = document.getElementById('today');
         this.week = document.getElementById('week');
@@ -24,8 +23,6 @@ export class IncomeOutcome {
 
     async dataInit(type) {
         await SidebarUtils.showBalance();
-        // await this.getCategories(type);
-
     }
 
     processDateInterval(that) {
@@ -83,8 +80,6 @@ export class IncomeOutcome {
                 btnClassList.classList.remove('active');
             });
             find.classList.add('active');
-            sessionStorage.clear();
-            console.log(sessionStorage);
             this.getCategories(this.dates);
         }
         buttonsArray.forEach((button) => {
@@ -102,7 +97,7 @@ export class IncomeOutcome {
 
     async getCategories(date) {
         try {
-            const result = await CustomHttp.request(config.host + '/operations?period=' + date.toString(),);
+            const result = await CustomHttp.request(config.host + '/operations?period=' + date,);
             if (result) {
                 this.filterData(result);
             }
@@ -197,7 +192,7 @@ export class IncomeOutcome {
         try {
             const result = await CustomHttp.request(config.host + '/operations/' + categoryId, 'DELETE');
             if (result) {
-                sessionStorage.clear();
+                // sessionStorage.clear();
                 location.href = "#/income-outcome";
             }
         } catch (error) {

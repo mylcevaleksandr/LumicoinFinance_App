@@ -62,7 +62,6 @@ export class Auth {
     }
 
     static setUserInfo(info) {
-        console.log(info);
         localStorage.setItem(this.userInfoKey, JSON.stringify(info));
     }
 

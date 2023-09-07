@@ -7,27 +7,32 @@ export class SidebarUtils {
         this.user = Auth.getUserInfo();
         this.root = document.getElementById('root');
         this.beforeChild = document.getElementById('content');
+        this.nav = false;
         this.show();
-        this.btnIncome = document.getElementById('btnIncome');
-        this.btnPayments = document.getElementById('btnPayments');
-        this.userFullName = document.getElementById('sidebarUser');
-        this.userLogout = document.getElementById('sidebarLogout');
-        this.btnMain = document.getElementById('btnMain');
-        this.svgMain = document.getElementById('svgMain');
-        this.btnIncomeOutcome = document.getElementById('btnIncomeOutcome');
-        this.svgIncomeOutcome = document.getElementById('svgIncomeOutcome');
-        this.btnToggle = document.getElementById('btnToggle');
-        this.svgToggle = document.getElementById('svgToggle');
-        this.ul = document.getElementById("ul-collapse");
-        this.processSidebar();
-        this.processBtn();
-        this.buttonToggle();
+
+        if (this.nav) {
+            this.btnIncome = document.getElementById('btnIncome');
+            this.btnPayments = document.getElementById('btnPayments');
+            this.userFullName = document.getElementById('sidebarUser');
+            this.userLogout = document.getElementById('sidebarLogout');
+            this.btnMain = document.getElementById('btnMain');
+            this.svgMain = document.getElementById('svgMain');
+            this.btnIncomeOutcome = document.getElementById('btnIncomeOutcome');
+            this.svgIncomeOutcome = document.getElementById('svgIncomeOutcome');
+            this.btnToggle = document.getElementById('btnToggle');
+            this.svgToggle = document.getElementById('svgToggle');
+            this.ul = document.getElementById("ul-collapse");
+            this.processSidebar();
+            this.processBtn();
+            this.buttonToggle();
+        }
+
     }
 
     static async showBalance() {
         try {
             const result = await CustomHttp.request(config.host + '/balance',);
-            if (result.balance) {
+            if (result.balance || result.balance == 0) {
                 document.getElementById("sidebarSum").innerText = result.balance;
             }
         } catch (error) {
@@ -73,18 +78,21 @@ export class SidebarUtils {
     }
 
     show() {
-        if (!document.getElementById('nav')) {
-            const myNav = document.createElement('nav');
-            myNav.className = 'sidebar  min-vh-100 fw-medium text-align-center d-flex flex-column align-items-center  border-end col col-2 py-5 px-0 ';
-            myNav.id = 'nav';
-            myNav.innerHTML = this.getLayout();
-            this.root.insertBefore(myNav, this.beforeChild);
+        if (window.location.hash !== "#/login" && window.location.hash !== "#/signup") {
+            if (!document.getElementById('nav')) {
+                const myNav = document.createElement('nav');
+                myNav.className = 'sidebar  min-vh-100 fw-medium text-align-center d-flex flex-column align-items-center  border-end col col-2 py-5 px-0 ';
+                myNav.id = 'nav';
+                myNav.innerHTML = this.getLayout();
+                this.root.insertBefore(myNav, this.beforeChild);
+            }
+            this.nav = true;
         }
     }
 
     processBtn() {
         this.btnIncomeOutcome.addEventListener('click', () => {
-            sessionStorage.clear();
+            sessionStorage.removeItem('dates');
         });
         [this.btnMain, this.btnIncomeOutcome].forEach((btn) => {
             btn.classList.remove('btn-primary', 'text-light');
@@ -114,8 +122,6 @@ export class SidebarUtils {
             this.btnPayments.classList.remove('btn-light');
             this.btnPayments.classList.add('bg-primary', 'text-light');
         }
-
-
     }
 
     processSidebar() {

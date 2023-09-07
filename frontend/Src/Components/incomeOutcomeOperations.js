@@ -27,7 +27,6 @@ export class IncomeOutcomeOperations {
         if (type === 'update') {
             await this.getOperation();
             await this.saveChanges();
-
         }
     }
 
@@ -39,9 +38,9 @@ export class IncomeOutcomeOperations {
                 input.classList.remove('border-danger');
             });
         });
-        that.date.addEventListener('click',(e)=>{
-        e.target.classList.remove('border-danger')
-        })
+        that.date.addEventListener('click', (e) => {
+            e.target.classList.remove('border-danger');
+        });
         this.saveIncome.addEventListener('click', () => {
             let type = that.select.value;
             let catId = that.description.selectedOptions[0].id;
@@ -135,6 +134,10 @@ export class IncomeOutcomeOperations {
             optionElement.id = categories[i].id;
             optionElement.innerHTML = categories[i].title;
             this.description.appendChild(optionElement);
+            if (categories[i].title === this.category) {
+                const selected = document.getElementById(categories[i].id);
+                selected.selected = true;
+            }
         }
     }
 
@@ -143,10 +146,18 @@ export class IncomeOutcomeOperations {
         this.saveIncome.addEventListener('click', () => {
             let type = that.select.value;
             let amount = that.amount.value;
+            if (!amount) {
+                amount = that.amount.placeholder.split("$")[0];
+            } else if (amount < 1) {
+                alert("Сумма не может быть 0");
+            }
             let date = that.getDate(that.date.value, 2);
             let comment = that.comment.value;
+            if (!comment) {
+                comment = that.comment.placeholder;
+            }
             let catId = that.description.selectedOptions[0].id;
-            this.postChanges(type, +amount, date, comment, +catId);
+            this.putChanges(type, +amount, date, comment, +catId);
         });
     }
 
@@ -169,7 +180,25 @@ export class IncomeOutcomeOperations {
                 "category_id": catId
             });
             if (result) {
-                sessionStorage.clear();
+                window.location.href = "#/income-outcome";
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async putChanges(type, amount, date, comment, catId) {
+
+        try {
+            const result = await CustomHttp.request(config.host + "/operations/" + this.operationId, "PUT", {
+                "type": type,
+                "amount": amount,
+                "date": date,
+                "comment": comment,
+                "category_id": catId
+            });
+            if (result) {
+                sessionStorage.removeItem('operationId');
                 window.location.href = "#/income-outcome";
             }
         } catch (e) {

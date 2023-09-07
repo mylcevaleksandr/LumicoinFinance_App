@@ -1,16 +1,18 @@
 import {CustomHttp} from "../services/custom-http.js";
 import {Auth} from "../services/auth.js";
 import config from "../../config/config.js";
+import {SidebarUtils} from "../services/sidebar-utils.js";
 
 export class Form {
 
     constructor(page) {
-        this.nav = document.getElementById('nav');
-        if (this.nav) {
-            console.log(this.nav);
-            this.nav.style.display = "none";
-            window.location.reload()
-        }
+        // this.nav = document.getElementById('nav');
+        // if (this.nav) {
+        //     console.log(this.nav);
+        //     this.nav.style.display = "none";
+        //     window.location.reload()
+        // }
+        new SidebarUtils();
         this.page = page;
         this.agreeElement = null;
         this.processElement = null;
@@ -119,35 +121,39 @@ export class Form {
                         if (result.error || !result.user) {
                             throw new Error(result.message);
                         }
+                       // await this.login(email, password);
                     }
                 } catch (error) {
                     return console.log(error);
                 }
-                location.href = '#/login';
             }
-            try {
-                const result = await CustomHttp.request(config.host + '/login', 'POST', {
-                    email: email,
-                    password: password
-                });
-                if (result) {
-                    if (result.error) {
-                        throw new Error(result.message);
-                    }
-                    if (this.agreeElement.checked) {
-                        // create user session?
-                    }
-                    Auth.setTokens(result.tokens.accessToken, result.tokens.refreshToken);
-                    Auth.setUserInfo({
-                        fullName: result.user.name + ' ' + result.user.lastName,
-                        userId: result.user.id,
-                        userEmail: email
-                    });
-                    location.href = '#/main';
+          await  this.login(email,password);
+        }
+    }
+
+    async login(email, password) {
+        try {
+            const result = await CustomHttp.request(config.host + '/login', 'POST', {
+                email: email,
+                password: password
+            });
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.message);
                 }
-            } catch (error) {
-                console.log(error);
+                // if (this.agreeElement.checked) {
+                //     // create user session?
+                // }
+                Auth.setTokens(result.tokens.accessToken, result.tokens.refreshToken);
+                Auth.setUserInfo({
+                    fullName: result.user.name.split(' ')[0] + ' ' + result.user.lastName,
+                    userId: result.user.id,
+                    userEmail: email
+                });
+                location.href = '#/main';
             }
+        } catch (error) {
+            console.log(error);
         }
     }
 }

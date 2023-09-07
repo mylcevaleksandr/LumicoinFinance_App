@@ -19,10 +19,11 @@ export class Start {
         this.startDate = null;
         this.endDate = null;
         new SidebarUtils();
-        this.dataInit()
+        this.dataInit();
         this.processDateInterval(this);
         this.processDates();
     }
+
     async dataInit() {
         await SidebarUtils.showBalance();
     }
