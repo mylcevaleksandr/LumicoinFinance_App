@@ -6,11 +6,11 @@ import {ButtonUtils} from "../services/button-utils.js";
 export class Categories extends ButtonUtils {
     constructor(type) {
         super();
-        this.categoryName = sessionStorage.getItem("deleteName");
         this.type = document.getElementById("type");
         this.cards = document.getElementById('cards');
         this.cardCreate = document.getElementById('cardCreate');
         this.createCategory = document.getElementById("createCategory");
+
         new SidebarUtils();
         this.dataInit(type);
     }
@@ -28,11 +28,11 @@ export class Categories extends ButtonUtils {
                 <div class="card border border-secondary-subtle rounded">
                     <div class="card-body">
                         <h3 data-titleId="${id}"  class="card-title">${title}</h3>
-                        <div>
-                            <button data-action="update" class="btn  btn-primary" data-id="${id}">Редактировать</a>
-                            <button class="btn btn-danger" data-bs-toggle="modal"
+                        <div class="row gx-1 gy-2" >
+                           <div class="col"> <button data-action="update" class="btn  btn-primary" data-id="${id}">Редактировать</a></div>
+                           <div class="col"> <button class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalCenter" data-id="${id}">Удалить
-                            </button>
+                            </button></div>
                         </div>
                     </div>
                 </div>
@@ -74,14 +74,7 @@ export class Categories extends ButtonUtils {
         }
         this.processCategoryDelete();
         this.processCategoryUpdate();
-        if (this.categoryName) {
-            this.deleteOperations(this.categoryName);
-        }
     }
 
-    deleteOperations(catName) {
-        console.log(catName);
-        console.log(sessionStorage);
-        sessionStorage.clear();
-    }
+
 }

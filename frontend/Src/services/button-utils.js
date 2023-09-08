@@ -6,21 +6,23 @@ export class ButtonUtils {
     constructor() {
         this.window = window.location.href.split('/').slice(-1);
         this.allUpdateButtons = [];
-        this.deleteConfirm = document.getElementById('deleteConfirm');
+        this.categoryId = null;
+        this.categoryName = null;
+
     }
 
 
     processCategoryDelete() {
-        this.allDeleteButtons = Array.from(document.querySelectorAll('button[data-id]'));
-        this.allDeleteButtons.forEach(button => {
+        const that = this;
+        const allDeleteButtons = Array.from(document.querySelectorAll('button[data-id]'));
+        allDeleteButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const categoryId = button.getAttribute('data-id');
                 const categoryName = document.querySelector(`[data-titleId="${categoryId}"]`).innerText;
-                this.deleteConfirm.addEventListener('click', () => {
-                    sessionStorage.setItem('Id', categoryId);
-                    sessionStorage.setItem('deleteName', categoryName);
-                    sessionStorage.setItem('deleteType', this.window.toString());
-                    this.deleteCategory(categoryId);
+                const deleteConfirm = document.getElementById('deleteConfirm');
+                deleteConfirm.addEventListener('click', () => {
+                    that.allCategories(categoryName);
+                    that.deleteCategory(categoryId);
                 });
             });
         });
@@ -37,6 +39,16 @@ export class ButtonUtils {
         }
     }
 
+    async allDelete(categoryId) {
+        try {
+            const result = await CustomHttp.request(config.host + '/operations/' + categoryId, 'DELETE');
+            if (result) {
+            }
+        } catch (error) {
+            return console.log(error);
+        }
+    }
+
     processCategoryUpdate() {
         this.allUpdateButtons = Array.from(document.querySelectorAll('button[data-action]'));
         this.allUpdateButtons.forEach(button => {
@@ -47,6 +59,26 @@ export class ButtonUtils {
                 sessionStorage.setItem('updateName', categoryName);
                 location.href = "#/" + this.window + "-update";
             });
+        });
+    }
+
+    async allCategories(categoryName) {
+        try {
+            const result = await CustomHttp.request(config.host + '/operations?period=all');
+            if (result) {
+                this.trashCategories(categoryName, result);
+            }
+        } catch (error) {
+            return console.log(error);
+        }
+    }
+
+    trashCategories(name, all) {
+        all.forEach(cat => {
+            if (cat.category === name) {
+                console.log(cat);
+                this.allDelete(cat.id);
+            }
         });
     }
 }

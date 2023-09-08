@@ -19,7 +19,7 @@ export class Router {
                 route: "#/signup",
                 title: "Регистрация",
                 template: "Templates/signup.html",
-                styles: "Styles/form.css",
+                styles: "",
                 load: () => {
                     new Form('signup');
                 }
@@ -28,7 +28,7 @@ export class Router {
                 route: "#/login",
                 title: "Вход в систему",
                 template: "Templates/login.html",
-                styles: "Styles/form.css",
+                styles: "",
                 load: () => {
                     new Form('login');
                 }
@@ -37,7 +37,7 @@ export class Router {
                 route: "#/main",
                 title: "Главная",
                 template: "Templates/main.html",
-                styles: "Styles/main.css",
+                styles: "",
                 load: () => {
                     new Start();
                 }
@@ -46,7 +46,7 @@ export class Router {
                 route: "#/income",
                 title: "Доходы",
                 template: "Templates/categories.html",
-                styles: "Styles/income.css",
+                styles: "",
                 load: () => {
                     new Categories("income");
                 }
@@ -55,7 +55,7 @@ export class Router {
                 route: "#/expense",
                 title: "Расходы",
                 template: "Templates/categories.html",
-                styles: "Styles/payments.css",
+                styles: "",
                 load: () => {
                     new Categories("expense");
                 }
@@ -64,7 +64,7 @@ export class Router {
                 route: "#/income-outcome",
                 title: "Доходы и Расходы",
                 template: "Templates/income_outcome.html",
-                styles: "Styles/correct.min.Styles",
+                styles: "",
                 load: () => {
                     new IncomeOutcome();
                 }
@@ -72,8 +72,8 @@ export class Router {
             {
                 route: "#/income-create",
                 title: "Создание Категории Доходов",
-                template: "Templates/income_create.html",
-                styles: "Styles/correct.min.Styles",
+                template: "Templates/exin_create.html",
+                styles: "",
                 load: () => {
                     new Create("income");
                 }
@@ -81,8 +81,8 @@ export class Router {
             {
                 route: "#/expense-create",
                 title: "Создание Категории Расходов",
-                template: "Templates/expense_create.html",
-                styles: "Styles/correct.min.Styles",
+                template: "Templates/exin_create.html",
+                styles: "",
                 load: () => {
                     new Create("expense");
                 }
@@ -90,8 +90,8 @@ export class Router {
             {
                 route: "#/income-update",
                 title: "Редактирование Категории Доходов",
-                template: "Templates/income_update.html",
-                styles: "Styles/correct.min.Styles",
+                template: "Templates/exin_update.html",
+                styles: "",
                 load: () => {
                     new Update("income");
                 }
@@ -99,8 +99,8 @@ export class Router {
             {
                 route: "#/expense-update",
                 title: "Редактирование Категории Расходов",
-                template: "Templates/expense_update.html",
-                styles: "Styles/correct.min.Styles",
+                template: "Templates/exin_update.html",
+                styles: "",
                 load: () => {
                     new Update("expense");
                 }

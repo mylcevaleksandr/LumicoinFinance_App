@@ -16,12 +16,13 @@ export class IncomeOutcome {
         this.dates = sessionStorage.getItem('dates');
         this.startDate = null;
         this.endDate = null;
-        this.processDateInterval(this);
-        this.processDates();
+
         this.dataInit();
     }
 
     async dataInit(type) {
+        await this.processDateInterval(this);
+        await this.processDates();
         await SidebarUtils.showBalance();
     }
 
@@ -192,7 +193,6 @@ export class IncomeOutcome {
         try {
             const result = await CustomHttp.request(config.host + '/operations/' + categoryId, 'DELETE');
             if (result) {
-                // sessionStorage.clear();
                 location.href = "#/income-outcome";
             }
         } catch (error) {

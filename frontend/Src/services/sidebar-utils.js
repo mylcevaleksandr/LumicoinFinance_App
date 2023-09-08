@@ -9,7 +9,6 @@ export class SidebarUtils {
         this.beforeChild = document.getElementById('content');
         this.nav = false;
         this.show();
-
         if (this.nav) {
             this.btnIncome = document.getElementById('btnIncome');
             this.btnPayments = document.getElementById('btnPayments');

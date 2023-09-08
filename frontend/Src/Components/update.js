@@ -8,6 +8,12 @@ export class Update {
         this.categoryId = sessionStorage.getItem('updateId');
         this.currentCategoryName = sessionStorage.getItem('updateName');
         this.newCategoryName = document.getElementById('categoryName');
+        this.span = document.getElementById("span");
+        this.link = document.getElementById("link");
+        if (type === "income") {
+            this.span.innerText = "Создание категории доходов";
+            this.link.href = "#/income";
+        }
         this.btnUpdateCategory = document.getElementById('updateCategory');
         new SidebarUtils();
         this.processCategoryUpdate();

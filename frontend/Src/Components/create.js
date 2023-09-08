@@ -7,14 +7,23 @@ export class Create {
         this.type = type;
         this.categoryName = document.getElementById('createCategoryName');
         this.btnCreateCategory = document.getElementById('createCategory');
+        this.span = document.getElementById("type");
+        this.link = document.getElementById("link");
+        if (type === "income") {
+            this.span.innerText = "Создание категории доходов";
+            this.link.href = "#/income";
+        }
         new SidebarUtils();
         this.processCategoryCreate();
         this.dataInit();
     }
+
     async dataInit(type) {
+
         await SidebarUtils.showBalance();
 
     }
+
     processCategoryCreate() {
         this.btnCreateCategory.addEventListener('click', () => {
             this.createCategoryName(this.categoryName.value, this.type);
