@@ -1,24 +1,22 @@
-import {Form} from "./Components/form.js";
+import {Form} from "./components/form.js";
 import {Auth} from "./services/auth.js";
-import {Start} from "./Components/start.js";
-import {Categories} from "./Components/categories.js";
-import {IncomeOutcome} from "./Components/incomeOutcome.js";
-import {Update} from "./Components/update.js";
-import {Create} from "./Components/create.js";
-import {IncomeOutcomeOperations} from "./Components/incomeOutcomeOperations";
+import {Start} from "./components/start.js";
+import {Categories} from "./components/categories.js";
+import {IncomeOutcome} from "./components/incomeOutcome.js";
+import {Update} from "./components/update.js";
+import {Create} from "./components/create.js";
+import {IncomeOutcomeOperations} from "./components/incomeOutcomeOperations.js";
 
 export class Router {
     constructor() {
         this.contentElement = document.getElementById("content");
-        this.stylesElement = document.getElementById("Styles");
+        this.stylesElement = document.getElementById("styles");
         this.titleElement = document.getElementById("title");
-        // this.profileElement = document.getElementById("profile");
-        // this.profileFullNameElement = document.getElementById("profile-full-name");
         this.routes = [
             {
                 route: "#/signup",
                 title: "Регистрация",
-                template: "Templates/signup.html",
+                template: "templates/signup.html",
                 styles: "",
                 load: () => {
                     new Form('signup');
@@ -27,7 +25,7 @@ export class Router {
             {
                 route: "#/login",
                 title: "Вход в систему",
-                template: "Templates/login.html",
+                template: "templates/login.html",
                 styles: "",
                 load: () => {
                     new Form('login');
@@ -36,7 +34,7 @@ export class Router {
             {
                 route: "#/main",
                 title: "Главная",
-                template: "Templates/main.html",
+                template: "templates/main.html",
                 styles: "",
                 load: () => {
                     new Start();
@@ -45,7 +43,7 @@ export class Router {
             {
                 route: "#/income",
                 title: "Доходы",
-                template: "Templates/categories.html",
+                template: "templates/categories.html",
                 styles: "",
                 load: () => {
                     new Categories("income");
@@ -54,7 +52,7 @@ export class Router {
             {
                 route: "#/expense",
                 title: "Расходы",
-                template: "Templates/categories.html",
+                template: "templates/categories.html",
                 styles: "",
                 load: () => {
                     new Categories("expense");
@@ -63,7 +61,7 @@ export class Router {
             {
                 route: "#/income-outcome",
                 title: "Доходы и Расходы",
-                template: "Templates/income_outcome.html",
+                template: "templates/income_outcome.html",
                 styles: "",
                 load: () => {
                     new IncomeOutcome();
@@ -72,7 +70,7 @@ export class Router {
             {
                 route: "#/income-create",
                 title: "Создание Категории Доходов",
-                template: "Templates/exin_create.html",
+                template: "templates/exin_create.html",
                 styles: "",
                 load: () => {
                     new Create("income");
@@ -81,7 +79,7 @@ export class Router {
             {
                 route: "#/expense-create",
                 title: "Создание Категории Расходов",
-                template: "Templates/exin_create.html",
+                template: "templates/exin_create.html",
                 styles: "",
                 load: () => {
                     new Create("expense");
@@ -90,7 +88,7 @@ export class Router {
             {
                 route: "#/income-update",
                 title: "Редактирование Категории Доходов",
-                template: "Templates/exin_update.html",
+                template: "templates/exin_update.html",
                 styles: "",
                 load: () => {
                     new Update("income");
@@ -99,7 +97,7 @@ export class Router {
             {
                 route: "#/expense-update",
                 title: "Редактирование Категории Расходов",
-                template: "Templates/exin_update.html",
+                template: "templates/exin_update.html",
                 styles: "",
                 load: () => {
                     new Update("expense");
@@ -108,7 +106,7 @@ export class Router {
             {
                 route: "#/income-outcome-update",
                 title: "Редактирование Категории Расходов и Доходов",
-                template: "Templates/income_outcome_update.html",
+                template: "templates/income_outcome_update.html",
                 styles: "",
                 load: () => {
                     new IncomeOutcomeOperations('update');
@@ -117,7 +115,7 @@ export class Router {
             {
                 route: "#/income-outcome-create",
                 title: "Создание Категории Расходов и Доходов",
-                template: "Templates/income_outcome_create.html",
+                template: "templates/income_outcome_create.html",
                 styles: "",
                 load: () => {
                     new IncomeOutcomeOperations('create');

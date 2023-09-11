@@ -140,7 +140,7 @@ export class SidebarUtils {
         return `
            <div class="w-100 sidebar_logo pb-3 border-bottom d-flex justify-content-center ">
             <a class="d-flex justify-content-center" href="#/main">
-                <img class="w-75 " src="/Images/logo.png" alt="logo">
+                <img class="w-75 " src="/images/logo.png" alt="logo">
             </a>
         </div>
         <div class=" custom-color h-100  d-flex flex-column justify-content-between ">

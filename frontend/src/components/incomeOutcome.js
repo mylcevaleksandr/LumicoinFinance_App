@@ -24,6 +24,9 @@ export class IncomeOutcome {
         await this.processDateInterval(this);
         await this.processDates();
         await SidebarUtils.showBalance();
+        if (!this.dates) {
+            await this.getCategories("today");
+        }
     }
 
     processDateInterval(that) {

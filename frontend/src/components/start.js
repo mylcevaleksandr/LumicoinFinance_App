@@ -6,7 +6,7 @@ import config from "../../config/config.js";
 
 export class Start {
     constructor() {
-        Auth.processUnauthorizedResponse();
+        // Auth.processUnauthorizedResponse();
 
         this.incomeChart = document.getElementById('incomeChart');
         this.paymentsChart = document.getElementById('paymentsChart');
@@ -26,6 +26,7 @@ export class Start {
 
     async dataInit() {
         await SidebarUtils.showBalance();
+        await this.getCategories("today")
     }
 
     processDateInterval(that) {

@@ -21,8 +21,7 @@ export class ButtonUtils {
                 const categoryName = document.querySelector(`[data-titleId="${categoryId}"]`).innerText;
                 const deleteConfirm = document.getElementById('deleteConfirm');
                 deleteConfirm.addEventListener('click', () => {
-                    that.allCategories(categoryName);
-                    that.deleteCategory(categoryId);
+                    that.in(categoryName, categoryId);
                 });
             });
         });
@@ -32,7 +31,7 @@ export class ButtonUtils {
         try {
             const result = await CustomHttp.request(config.host + '/categories/' + this.window + "/" + categoryId, 'DELETE');
             if (result) {
-                location.href = "#/" + this.window;
+                window.location.reload();
             }
         } catch (error) {
             return console.log(error);
@@ -43,6 +42,7 @@ export class ButtonUtils {
         try {
             const result = await CustomHttp.request(config.host + '/operations/' + categoryId, 'DELETE');
             if (result) {
+                window.location.reload();
             }
         } catch (error) {
             return console.log(error);
@@ -60,6 +60,11 @@ export class ButtonUtils {
                 location.href = "#/" + this.window + "-update";
             });
         });
+    }
+
+    async in(categoryName, categoryId) {
+        await this.allCategories(categoryName);
+        await this.deleteCategory(categoryId);
     }
 
     async allCategories(categoryName) {

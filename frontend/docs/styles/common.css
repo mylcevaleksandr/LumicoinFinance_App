@@ -1,6 +1,11 @@
+@font-face {
+    font-family: Roboto, "sans-serif";
+    src: url("../fonts/Roboto.ttf")format("ttf");
+}
 
 body {
     font-family: Roboto, "sans-serif";
+
     font-style: normal;
     height: 100vh;
     width: 100vw;
@@ -50,6 +55,16 @@ li {
     font-weight: 400;
 }
 
+.form_login-link a {
+    color: #0D6EFD;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration-line: underline;
+}
+
+
 /*.dropdown-toggle::after {*/
 /*    display: none;*/
 /*}*/
@@ -82,4 +97,5 @@ li {
 
 #btnToggle.collapsed {
     background-color: #FFFFFF;
-    color: #052C65;}
+    color: #052C65;
+}

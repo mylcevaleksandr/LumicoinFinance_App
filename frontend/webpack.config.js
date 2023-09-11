@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 
 module.exports = {
-    entry: "./Src/app.js",
+    entry: "./src/app.js",
     mode: "development",
     output: {
         filename: "start.js",
@@ -22,26 +22,36 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                {from: "Templates", to: "Templates"},
-                {from: "Styles", to: "Styles"},
-                {from: "Static/Images", to: "Images"},
+                {from: "templates", to: "templates"},
+                {from: "styles", to: "styles"},
+                {from: "static/images", to: "images"},
+                {from: "static/fonts", to: "fonts"},
             ],
         }),
     ],
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.js$/,
-    //             exclude: /node_modules/,
-    //             use: {
-    //                 loader: "babel-loader",
-    //                 options: {
-    //                     presets: [
-    //                         "@babel/preset-env"
-    //                     ]
-    //                 }
-    //             }
-    //         }
-    //     ]
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [
+                            "@babel/preset-env"
+                        ]
+                    }
+                }
+            },
+            //  Вот пытался настроить работу с шрифтами
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+        ]
+    },
 };
