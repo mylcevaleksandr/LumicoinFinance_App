@@ -43,15 +43,7 @@ module.exports = {
                     }
                 }
             },
-            //  Вот пытался настроить работу с шрифтами
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-            },
+
         ]
     },
 };

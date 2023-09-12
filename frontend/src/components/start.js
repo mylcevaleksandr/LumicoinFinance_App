@@ -1,4 +1,3 @@
-import {Auth} from "../services/auth.js";
 import {SidebarUtils} from "../services/sidebar-utils.js";
 import {Chart} from "chart.js/auto";
 import {CustomHttp} from "../services/custom-http.js";
@@ -26,7 +25,7 @@ export class Start {
 
     async dataInit() {
         await SidebarUtils.showBalance();
-        await this.getCategories("today")
+        await this.getCategories("today");
     }
 
     processDateInterval(that) {
@@ -50,9 +49,9 @@ export class Start {
         });
         that.interval.addEventListener('click', () => {
             buttonsArray.forEach((btnClassList) => {
-                btnClassList.classList.remove('active');
+                btnClassList.classList.remove('active_background');
             });
-            that.interval.classList.add('active');
+            that.interval.classList.add('active_background');
             if (!that.startDate || !that.endDate) {
                 alert("Please choose a start date and an end date!");
             } else {
@@ -77,11 +76,11 @@ export class Start {
         const buttonsArray = [this.today, this.week, this.month, this.year, this.all];
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
-                this.interval.classList.remove('active');
+                this.interval.classList.remove('active_background');
                 buttonsArray.forEach((btnClassList) => {
-                    btnClassList.classList.remove('active');
+                    btnClassList.classList.remove('active_background');
                 });
-                button.classList.add('active');
+                button.classList.add('active_background');
                 this.getCategories(button.id);
             });
         });

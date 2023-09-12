@@ -51,9 +51,9 @@ export class IncomeOutcome {
         });
         that.interval.addEventListener('click', () => {
             buttonsArray.forEach((btnClassList) => {
-                btnClassList.classList.remove('active');
+                btnClassList.classList.remove('active_background');
             });
-            that.interval.classList.add('active');
+            that.interval.classList.add('active_background');
             if (!that.startDate || !that.endDate) {
                 alert("Please choose a start date and an end date!");
             } else {
@@ -79,21 +79,21 @@ export class IncomeOutcome {
 
         if (this.dates) {
             let find = buttonsArray.find(e => e.id === this.dates);
-            this.interval.classList.remove('active');
+            this.interval.classList.remove('active_background');
             buttonsArray.forEach((btnClassList) => {
-                btnClassList.classList.remove('active');
+                btnClassList.classList.remove('active_background');
             });
-            find.classList.add('active');
+            find.classList.add('active_background');
             this.getCategories(this.dates);
         }
         buttonsArray.forEach((button) => {
             button.addEventListener('click', () => {
                 sessionStorage.setItem('dates', button.id);
-                this.interval.classList.remove('active');
+                this.interval.classList.remove('active_background');
                 buttonsArray.forEach((btnClassList) => {
-                    btnClassList.classList.remove('active');
+                    btnClassList.classList.remove('active_background');
                 });
-                button.classList.add('active');
+                button.classList.add('active_background');
                 this.getCategories(button.id);
             });
         });
