@@ -97,23 +97,25 @@ export class Start {
         }
     }
 
+    aggregateData(data) {
+        const result = {};
+        for (const element of data) {
+            if (!(element.category in result)) {
+                result[element.category] = element.amount;
+            } else {
+                result[element.category] += element.amount;
+            }
+        }
+        return result;
+    }
+
     filterData(data) {
-        const incomeAmount = [];
-        const incomeLabels = [];
-        const expenseAmount = [];
-        const expenseLabels = [];
         const income = data.filter(item => item.type.includes('income'));
         const expense = data.filter(item => item.type.includes('expense'));
-        income.forEach((item => {
-            incomeAmount.push(item.amount);
-            incomeLabels.push(item.comment);
-        }));
-        expense.forEach((item => {
-            expenseAmount.push(item.amount);
-            expenseLabels.push(item.comment);
-        }));
-        this.createIncomeChart(incomeAmount, incomeLabels);
-        this.createExpenseChart(expenseAmount, expenseLabels);
+        const incomeAggregate = this.aggregateData(income);
+        const expenseAggregate = this.aggregateData(expense);
+        this.createIncomeChart(Object.values(incomeAggregate), Object.keys(incomeAggregate));
+        this.createExpenseChart(Object.values(expenseAggregate), Object.keys(expenseAggregate));
 
     }
 
